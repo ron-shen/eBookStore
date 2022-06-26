@@ -1,2 +1,2 @@
-# BookStore
-Book store web app written in Django 
+# eBookStore
+eBook store web app written in Django 
