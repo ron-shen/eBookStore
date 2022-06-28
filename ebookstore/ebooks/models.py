@@ -26,6 +26,7 @@ class Book(models.Model):
   date = models.DateField(auto_now_add=True)
   image = models.ImageField(upload_to=None)
   pdf = models.FileField(upload_to=None)
+  price = models.DecimalField(max_digits=10, decimal_places=2)
   category = models.ForeignKey(Category, on_delete=models.PROTECT)
   author = models.ManyToManyField(Author, on_delete=models.PROTECT)
   publisher = models.ForeignKey(Publisher, on_delete=models.PROTECT)
@@ -39,6 +40,7 @@ class UserBook(models.Model):
 
   user_id = models.ForeignKey(User, on_delete=models.CASCADE)
   book_id = models.ForeignKey(Book, on_delete=models.CASCADE)
+  date = models.DateField(auto_now_add=True)
   comment_rating = models.OneToOneField(CommentRating, on_delete=models.CASCADE)
   
   
