@@ -1,1 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block content %}
+  <section>
+    <h4>Best Selling Books</h4>
+    {% for book in books %}
+      <a href="{% url "indiviudal-ebook" book.slug %}">
+        <img src={{ book.image.url }} alt="image not found">
+      </a>
+    {% endfor %}
+  </section>
+
+{% endblock %}

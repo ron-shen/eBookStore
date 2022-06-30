@@ -9,6 +9,8 @@ from .models import Book
 class Homepage(ListView):
   template_name = "ebooks/index.html"
   model = Book
+  context_object_name = "books"
+  
   
 
 
