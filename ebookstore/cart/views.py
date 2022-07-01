@@ -4,5 +4,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 class CartView(ListView):
-  def get(self, request):
-    return HttpResponse("cart")
+	def get(self, request):
+		return HttpResponse("cart")

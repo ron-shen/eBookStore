@@ -7,24 +7,24 @@ from .models import Book
 
 # Create your views here.
 class Homepage(ListView):
-  template_name = "ebooks/index.html"
-  model = Book
-  context_object_name = "books"
+	template_name = "ebooks/index.html"
+	model = Book
+	context_object_name = "books"
   
   
 
 
 class EbookDetailView(View):
-  def get(self, request, slug):
-    return HttpResponse("ebook")
-  
-  def post(self, request):
-    pass
+	def get(self, request, slug):
+		return HttpResponse("ebook")
+
+	def post(self, request):
+		pass
   
 
 class EbooksView(ListView):
-  def get(self, request):
-    return HttpResponse("overall books")
+	def get(self, request):
+		return HttpResponse("overall books")
 
 
 

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block css_files %}{% endblock %}
+
+{% block content %}
+	{% csrf_token %}
+	<form method="POST" action='#'>
+		{{ form.as_p }}
+	</form>
+{% endblock %}
