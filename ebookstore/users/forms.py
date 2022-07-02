@@ -4,9 +4,9 @@ from .models import User
 class SignUpForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ['user_name', 'password', 'email', 'first_name', 'last_name', 'billing_address']
+    fields = ['username', 'password', 'email', 'first_name', 'last_name', 'billing_address']
     labels = {
-      "user_name": "User name",
+      "username": "User name",
       "password": "Password",
       "email": "Email",
       "first_name": "First name",
@@ -17,8 +17,8 @@ class SignUpForm(forms.ModelForm):
 class SignInForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ['user_name', 'password']
+    fields = ['username', 'password']
     labels = {
-      "user_name": "User name",
+      "username": "User name",
       "password": "Password",
     } 

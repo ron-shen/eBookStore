@@ -4,12 +4,19 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
 from django.http import HttpResponse
 from .forms import SignUpForm, SignInForm
+from django.contrib.auth import authenticate
 
 
 # Create your views here.
 def account_view(request):
-        #show link to user profile, purchase history and books owned
-        return render(request, "users/user.html")
+    # user = authenticate(username='test', password='password')
+    # if user is not None:
+    #     print(user.get_username())
+    #     return HttpResponse("OK!")
+    # else:
+    #     return HttpResponse("no")
+    #show link to user profile, purchase history and books owned
+    return render(request, "users/user.html")
 
 
 class ProfileView(UpdateView):
