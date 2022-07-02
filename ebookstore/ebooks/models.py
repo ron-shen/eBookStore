@@ -38,9 +38,7 @@ class Book(models.Model):
 	copies_sold = models.IntegerField(default=0)
 	slug = models.SlugField(max_length=100, db_index=True)
 	date = models.DateField(auto_now_add=True)
-	#image = models.ImageField(upload_to="books_image/")
 	image = models.ImageField(upload_to=upload_location)
-	#pdf = models.FileField(upload_to="books_pdf/")
 	pdf = models.FileField(upload_to=upload_location)
 	price = models.DecimalField(max_digits=10, decimal_places=2)
 	category = models.ForeignKey(Category, on_delete=models.PROTECT)
@@ -57,8 +55,8 @@ class UserBook(models.Model):
 	class Meta:
 		unique_together = ['user_id', 'book_id']
 
-	user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	book_id = models.ForeignKey(Book, on_delete=models.CASCADE)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	date = models.DateField(auto_now_add=True)
 	comment_rating = models.OneToOneField(CommentRating, on_delete=models.CASCADE)
 

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ User}}
+{% endblock %}
+
+{% block css_files %}
+
+{% endblock %}
+
+{% block content %}
+  <ul>
+    <li><a href="{% url 'profile' %}">Profile</a></li>
+    <li><a href="{% url 'purchase-history' %}">Purchase history</a></li>
+    <li><a href="{% url 'library' %}">Library</a></li>
+  </ul>
+{% endblock %}

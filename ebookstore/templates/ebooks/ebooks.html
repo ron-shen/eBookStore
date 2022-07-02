@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block css_files %}
+{% endblock %}
+
+{% block title %}
+  eBooks
+{% endblock %}
+
+{% block content %}
+  <section>
+    <h4>All eBooks</h4>
+    {% for book in books %}
+      <a href="{% url "indiviudal-ebook" book.slug %}">
+        <img src={{ book.image.url }} alt="image not found">
+      </a>
+    {% endfor %}
+  </section>
+{% endblock %}

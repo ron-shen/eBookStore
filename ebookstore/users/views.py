@@ -9,7 +9,7 @@ from .forms import SignUpForm, SignInForm
 # Create your views here.
 def account_view(request):
         #show link to user profile, purchase history and books owned
-        return HttpResponse("account overview")
+        return render(request, "users/user.html")
 
 
 class ProfileView(UpdateView):

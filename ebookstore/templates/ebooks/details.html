@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  {{ book.title }}
+{% endblock %}
+
+{% block css_files %}
+
+{% endblock %}
+
+{% block content %}
+  <section>
+    <img src={{ book.image.url }} alt="image not found">
+    {{ book.title }}
+    {{ book.synopsis }}
+    <button>Add to cart</button>
+    <button>Buy Now</button>
+    <button>Add to Wishlist</button>
+    <h5>Comment</h5>
+    {{ comment_rating.comment }}
+    {{ comment_rating.rating }}
+  </section>
+
+{% endblock %}
