@@ -10,6 +10,7 @@ from ebooks.models import Book
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
+from django.db import IntegrityError
 
 
 
@@ -98,7 +99,12 @@ class WishListView(LoginRequiredMixin, ListView):
 
     def post(self, request):
         book = Book.objects.get(slug=request.POST["slug"])
-        WishList.objects.create(user=request.user, book=book)
+        #if the book already exists in the wishlist, raise IntegrityError
+        try:
+            WishList.objects.create(user=request.user, book=book)
+        except IntegrityError:
+            pass
+        
         return HttpResponseRedirect(reverse("indiviudal-ebook", args=[request.POST["slug"]]))
     
 

@@ -6,18 +6,21 @@
 {% endblock %}
 
 {% block css_files %}
-
+  <link rel="stylesheet" href={% static "cart/cart.css" %}>
 {% endblock %}
 
 {% block content %}
   <section>
-    <img src={{ book.image.url }} alt="image not found">
-    {{ book.title }}
-    {{ book.price }}
+    {% for book in books %}
+      <img src={{ book.image.url }} alt="image not found">
+      {{ book.title }}
+      {{ book.price }}
+    {% endfor %}
+    {{ total_price }}
 
-    <form action="{% url "checkout" %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="checkout">Check out</button>
+    <form action="{% url "checkout" %}" method="post" id="checkout">
+      {% csrf_token %}
+      <button type="submit" name="checkout">Check out</button>
     </form>
 
   </section>

@@ -16,8 +16,22 @@ class Homepage(ListView):
 class EbookDetailView(View):
     def get(self, request, slug):
         book = Book.objects.get(slug=slug)
-        comment_rating = UserBook.objects.filter(book__id=book.id)
-        content = {"book": book, "comment_rating": comment_rating}
+        comment = []
+        rating = [0] * 5 #distribution of rating 1 2 3 4 5
+        avg_rating = 0
+        for comment_rating in UserBook.objects.filter(book__id=book.id):
+            comment.append(comment_rating.comment)
+            rating[comment_rating.rating] += 1
+        
+        for i in range(len(rating)):
+            avg_rating += (i + 1) * rating[i]
+        try:
+            avg_rating /= sum(rating)
+        except ZeroDivisionError:
+            pass
+            
+        content = {"book": book, "comment": comment, "rating": rating, 
+                   "avg_rating": avg_rating}
         return render(request, "ebooks/details.html", content)
 
     def post(self, request):
