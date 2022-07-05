@@ -5,10 +5,13 @@ from django.views.generic.edit import FormView
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import SignUpForm, SignInForm
 from django.contrib.auth import authenticate, login
-from .models import User
+from .models import User, WishList
+from ebooks.models import Book
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
-from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 def account_view(request):
@@ -22,17 +25,23 @@ def account_view(request):
     return render(request, "users/user.html")
 
 
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
+    redirect_field_name = "home-page"
+    
     def get(self, request):
         return HttpResponse("profile")
+    
 
-
-class PurchaseHistory(ListView):
+class PurchaseHistory(LoginRequiredMixin, ListView):
+    redirect_field_name = "home-page"
+    
     def get(self, request):
         return HttpResponse("purchasehistory")
+    
 
-
-class LibraryView(ListView):
+class LibraryView(LoginRequiredMixin, ListView):
+    redirect_field_name = "home-page"
+    
     #show all the books users bought
     def get(self, request):
         return HttpResponse("library")
@@ -47,18 +56,17 @@ class SignInView(FormView):
                             password=request.POST['password'])
         if user is not None:
             login(request, user)
-            #return HttpResponse("ok")
-        else:
-            return HttpResponse("user doesn't exist!")
+        # else:
+        #     return HttpResponse("user doesn't exist!")
         
-        if request.user.is_authenticated:
-            print(user.username)
-            print("ok!!!!!!!!!!!!!!!!!!!")
+        # if request.user.is_authenticated:
+        #     print(user.username)
+        #     print("ok!!!!!!!!!!!!!!!!!!!")
             
-        else:
-            print("not ok!!!")
+        # else:
+        #     print("not ok!!!")
             
-        return HttpResponse("ok")
+        return HttpResponseRedirect(reverse("home-page"))
 
 
 class SignUpView(FormView):
@@ -79,11 +87,23 @@ class SignUpView(FormView):
                             first_name=user.first_name, last_name=user.last_name, 
                             billing_address=user.billing_address)
         return HttpResponseRedirect(reverse("home-page"))
+    
 
-
-class WishListView(ListView):
+class WishListView(LoginRequiredMixin, ListView):
+    redirect_field_name = "home-page"
+    
     def get(self, request):
+        print(request.user.username)
         return HttpResponse("wish list")
 
+    def post(self, request):
+        book = Book.objects.get(slug=request.POST["slug"])
+        WishList.objects.create(user=request.user, book=book)
+        return HttpResponseRedirect(reverse("indiviudal-ebook", args=[request.POST["slug"]]))
+    
+
+def signout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("home-page"))
 
   

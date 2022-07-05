@@ -1,8 +1,8 @@
 from django.db import models
-from comment_rating.models import CommentRating
-from users.models import User
+#from comment_rating.models import CommentRating
 from django.conf import settings
 from common import upload_location
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Author(models.Model):
@@ -53,12 +53,13 @@ class UserBook(models.Model):
 	#since Django doesn't support composite primary keys,
 	#unique_together need to be used ot act as composite primary keys
 	class Meta:
-		unique_together = ['user_id', 'book_id']
+		unique_together = ['user', 'book']
 
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	date = models.DateField(auto_now_add=True)
-	comment_rating = models.OneToOneField(CommentRating, on_delete=models.CASCADE)
+	comment = models.TextField(max_length=500)
+	rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
 	def __str__(self):
 		return f"{self.user_id}, {self.book_id}"

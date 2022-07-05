@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
   {{ User}}
 {% endblock %}
 
 {% block css_files %}
-
+  <link rel="stylesheet" href={% static "users/user.css" %}>
 {% endblock %}
 
 {% block content %}
-  <ul>
+  <ul id="user">
     <li><a href="{% url 'profile' %}">Profile</a></li>
     <li><a href="{% url 'purchase-history' %}">Purchase history</a></li>
     <li><a href="{% url 'library' %}">Library</a></li>

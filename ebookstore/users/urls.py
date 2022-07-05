@@ -10,4 +10,5 @@ urlpatterns = [
   path("wishlist/", views.WishListView.as_view(), name="wish-list"),
   path("signin/", views.SignInView.as_view(), name="sign-in"),
   path("signup/", views.SignUpView.as_view(), name="sign-up"),
+  path("signout/", views.signout_view, name="sign-out"),
 ]

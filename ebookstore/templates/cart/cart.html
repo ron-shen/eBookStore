@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  {{ book.title }}
+{% endblock %}
+
+{% block css_files %}
+
+{% endblock %}
+
+{% block content %}
+  <section>
+    <img src={{ book.image.url }} alt="image not found">
+    {{ book.title }}
+    {{ book.price }}
+
+    <form action="{% url "checkout" %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="checkout">Check out</button>
+    </form>
+
+  </section>
+
+{% endblock %}
