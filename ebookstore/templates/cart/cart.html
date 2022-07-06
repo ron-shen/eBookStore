@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {{ book.title }}
+  {{ Cart }}
 {% endblock %}
 
 {% block css_files %}
@@ -15,12 +15,16 @@
       <img src={{ book.image.url }} alt="image not found">
       {{ book.title }}
       {{ book.price }}
+      <form action="{% url "cart" %}" method="post" id="checkout">
+        {% csrf_token %}
+        <button type="submit" name="delete" value={{ book.id }}>Delete</button>
+      </form>
     {% endfor %}
     {{ total_price }}
 
-    <form action="{% url "checkout" %}" method="post" id="checkout">
+    <form action="{% url "cart" %}" method="post" id="checkout">
       {% csrf_token %}
-      <button type="submit" name="checkout">Check out</button>
+      <button type="submit" name="checkout" value="checkout">Check out</button>
     </form>
 
   </section>

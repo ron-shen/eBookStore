@@ -3,8 +3,9 @@ from django.views.generic.list import ListView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.views.generic.base import View
-from ebooks.models import Book
+#from django.views.generic.base import View
+from ebooks.models import Book, UserBook
+from users.models import User
 
 # Create your views here.
 class CartView(LoginRequiredMixin, ListView):
@@ -46,20 +47,36 @@ class CartView(LoginRequiredMixin, ListView):
         
  
     def post(self, request):
-        if 'add_to_cart' in request.POST:
+        if "add_to_cart" in request.POST:
             self.add_book_to_cart(request)    
             return HttpResponseRedirect(reverse("indiviudal-ebook", args=[request.POST["slug"]]))
         
-        if 'buy_now' in request.POST:
+        if "buy_now" in request.POST:
             self.add_book_to_cart(request)
             return HttpResponseRedirect(reverse("cart"))
         
+        if "delete" in request.POST:
+            book_id = int(request.POST["delete"])
+            books_in_cart = request.session.get("cart")
+            books_in_cart.remove(book_id)
+            request.session["cart"] = books_in_cart
+            return HttpResponseRedirect(reverse("cart"))
+        
+        if "checkout" in request.POST:
+            books_in_cart = request.session.get("cart")
+            user = User.objects.get(pk=request.user.id)
+            books = Book.objects.filter(pk__in=books_in_cart)
+            for book in books:
+                #Duplicate entry            
+                UserBook.objects.create(user=user, book=book)                          
+            del request.session["cart"]            
+            return HttpResponseRedirect(reverse("home-page"))
 
-class CheckOutView(View):
-    def get(self, request):
-        pass
+# class CheckOutView(View):
+#     def get(self, request):
+#         pass
     
-    def post(self, request):
-        return HttpResponse("Success")
+#     def post(self, request):
+#         return HttpResponse("Success")
         
     

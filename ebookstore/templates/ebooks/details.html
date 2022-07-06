@@ -34,11 +34,23 @@
       <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
       <input type="hidden" name="slug" value={{ book.slug }}>
     </form>
+    
+    {% if comment_rating_form %}
+      {{ comment_rating_form }}
+    {% endif %}
+
+    <h5>Rating</h5>
+    {{ rating_distribution }}
+    {{ avg_rating }}
 
     <h5>Comment</h5>
-    {{ comment }}
-    {{ rating }}
-    {{ avg_rating }}
+    {% for user_comment_rating in users_comment_rating %}
+      {% comment %} name comment rating {% endcomment %}
+      <p>{{ user_comment_rating.0 }}</p>
+      <p>{{ user_comment_rating.1 }}</p>
+      <p>{{ user_comment_rating.2 }}</p>
+    {% endfor %}
+
   </section>
 
 {% endblock %}

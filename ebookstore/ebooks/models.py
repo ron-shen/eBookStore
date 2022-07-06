@@ -58,8 +58,8 @@ class UserBook(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	book = models.ForeignKey(Book, on_delete=models.CASCADE)
 	date = models.DateField(auto_now_add=True)
-	comment = models.TextField(max_length=500)
-	rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+	comment = models.TextField(max_length=500, null=True)
+	rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True)
 
 	def __str__(self):
 		return f"{self.user_id}, {self.book_id}"

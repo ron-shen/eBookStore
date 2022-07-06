@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Library
+{% endblock %}
+
+{% block css_files %}
+  {% comment %} <link rel="stylesheet" href={% static "users/wishlist.css" %}> {% endcomment %}
+{% endblock %}
+
+{% block content %}
+  <section>
+    {% for book in books %}
+      <a href="{% url "indiviudal-ebook" book.slug %}">
+      <img src={{ book.image.url }} alt="image not found">
+      </a>
+      <form action="{% url "library" %}" method="post" id="#">
+        {% csrf_token %}
+        <button type="submit" name="slug" value={{ book.slug }}>Download</button>
+      </form>
+    {% endfor %}
+  </section>
+
+{% endblock %}

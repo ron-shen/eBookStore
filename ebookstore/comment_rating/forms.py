@@ -1,7 +1,7 @@
 from django import forms
-from .models import CommentRating
+#from .models import CommentRating
 
 
-class CommentRatingForm(forms.ModelForm):
-  class Meta:
-    model = CommentRating
+class CommentRatingForm(forms.Form):
+	comment = forms.TextField(max_length=500)
+	rating = forms.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
