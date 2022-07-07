@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.views.generic.edit import UpdateView
-from django.views.generic.list import ListView
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 from django.http import HttpResponse, HttpResponseRedirect, FileResponse
 from .forms import SignUpForm, SignInForm
 from django.contrib.auth import authenticate, login
@@ -14,6 +13,8 @@ from django.db import IntegrityError
 from django.views.generic.base import View
 from ebooks.models import UserBook
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
+
 
 # Create your views here.
 def account_view(request):
@@ -27,13 +28,37 @@ def account_view(request):
     return render(request, "users/user.html")
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
+class ProfileView(LoginRequiredMixin, FormView):
     redirect_field_name = "home-page"
-    model = User
-    fields = ["username", "password", "email", "first_name", "last_name", "billing_address"]
-    
-    # def get(self, request):
-    #     return HttpResponse("profile")
+    template_name = "users/profile.html"
+    form_class = SignUpForm
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = User.objects.get(pk=self.request.user.id)
+        user.password = None
+        form = SignUpForm(instance=user)
+        context["form"] = form
+        return context
+
+   
+    def post(self, request):
+        form = SignUpForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+            return HttpResponseRedirect(reverse("home-page"))   
+        else:
+            print(form.errors.as_data())
+            return self.form_invalid(form)
+
+       
+    def form_invalid(self, form):
+        #the default form_invalid() calls get_context_data() I overwrite,
+        #which overwrite the inputted data, so I have to overide this method
+        #to call the parent get_context_data
+        return self.render_to_response(super().get_context_data(form=form))
     
 
 class PurchaseHistory(LoginRequiredMixin, ListView):
@@ -78,30 +103,39 @@ class LibraryView(LoginRequiredMixin, View):
         response = FileResponse(open(path, 'rb'))
         return response
         
-    
-    
-    
-    
+     
 class SignInView(FormView):
     template_name = "users/sign_in.html/"
     form_class = SignInForm
     
+  
     def post(self, request):
-        user = authenticate(username=request.POST['username'], 
-                            password=request.POST['password'])
-        if user is not None:
-            login(request, user)
+        form = SignInForm(request, data=request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect(reverse("home-page"))
+        
+        else:
+            print(form.errors.as_data())
+            return self.form_invalid(form)
+         
+        # user = authenticate(username=request.POST['username'], 
+        #                     password=request.POST['password'])
+        # print(type(user))
+        # print(dir(user))
+        # if user is not None:
+        #     #print("user exist")
+        #     login(request, user)
         # else:
         #     return HttpResponse("user doesn't exist!")
         
-        # if request.user.is_authenticated:
-        #     print(user.username)
-        #     print("ok!!!!!!!!!!!!!!!!!!!")
+        # # if request.user.is_authenticated:
+        # #     print(user.username)
+        # #     print("ok!!!!!!!!!!!!!!!!!!!")
             
-        # else:
-        #     print("not ok!!!")
+        # # else:
+        # #     print("not ok!!!")
             
-        return HttpResponseRedirect(reverse("home-page"))
+        #return HttpResponseRedirect(reverse("home-page"))
 
 
 class SignUpView(FormView):
@@ -109,21 +143,19 @@ class SignUpView(FormView):
     form_class = SignUpForm
     
     def post(self, request):
-        form = self.get_form()
-        if form.is_valid():        
-            return self.form_valid(form)
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.password = make_password(user.password)
+            user.save()
+            return HttpResponseRedirect(reverse("home-page"))
         else:
+            #keep the inputted data in the sign up page
+            #and input the invalid field
             print(form.errors.as_data())
-        return HttpResponse("bad") 
-    
-    def form_valid(self, form):
-        user = form.save(commit=False)
-        User.objects.create_user(username=user.username, email=user.email, password=user.password,
-                            first_name=user.first_name, last_name=user.last_name, 
-                            billing_address=user.billing_address)
-        return HttpResponseRedirect(reverse("home-page"))
-    
+            return self.form_invalid(form)
 
+            
 class WishListView(LoginRequiredMixin, View):
     redirect_field_name = "home-page"
     

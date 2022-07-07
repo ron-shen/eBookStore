@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block css_files %}
-  {% comment %} <link rel="stylesheet" href={% static "users/wishlist.css" %}> {% endcomment %}
+  <link rel="stylesheet" href={% static "users/profile.css" %}>
 {% endblock %}
 
 {% block content %}
   <section>
-    <form method="post">
+    <form method="post" id="profile" action="{% url "profile" %}">
       {% csrf_token %}
+      {{ form.errors }}
       {{ form.as_p }}
       <input type="submit" value="Update">
     </form>    

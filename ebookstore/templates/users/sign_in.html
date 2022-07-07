@@ -12,7 +12,8 @@
 {% block content %}
 	<form method="POST" action="{% url "sign-in" %}" class="form">
     {% csrf_token %}
-		{{ form.as_p }}
+    {{ form.errors }}
+    {{ form.as_p }}
     <button>Submit</button>
 	</form>
 {% endblock %}

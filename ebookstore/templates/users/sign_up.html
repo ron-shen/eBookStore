@@ -12,10 +12,8 @@
 {% block content %}
 	<form method="POST" action="{% url "sign-up" %}" class="form">
     {% csrf_token %}
+    {{ form.errors }}
 	{{ form.as_p }}
-    {% comment %} {{ form.username }}
-    {{ form.username.errors }} {% endcomment %}
-    {% comment %} {{ form.username.errors }} {% endcomment %}
     <button type="submit">Submit</button>
 	</form>
 {% endblock %}
