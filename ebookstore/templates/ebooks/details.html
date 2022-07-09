@@ -6,10 +6,27 @@
 {% endblock %}
 
 {% block css_files %}
-
+  <link rel="stylesheet" href={% static "ebooks/details.css" %}>
 {% endblock %}
 
 {% block content %}
+  <div class="main-container">
+    <!--book details-->
+    <div class="left-container">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
+    </div>
+    <!--contents about adding to cart/save to wishlist/buy now-->
+    <div class="right-container">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
+    </div>
+    <!--comment and rating-->
+    <div class="bottom-container">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
+    </div>
+
+  </div>
+
+  <!--
   <section>
     <img src={{ book.image.url }} alt="image not found">
     {{ book.title }}
@@ -52,5 +69,6 @@
     {% endfor %}
 
   </section>
+  -->
 
 {% endblock %}

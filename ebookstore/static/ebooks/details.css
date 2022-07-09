@@ -1,0 +1,23 @@
+.main-container {
+  margin: 5% 10% 0% 10%;
+  border-color: red;
+  border-style: solid;
+}
+
+.left-container{
+  margin: 0% 0% 0% 0%;
+  border-color: blue;
+  border-style: solid;
+}
+
+.right-container{
+  margin: 3% 3% 0% 0%;
+  border-color: green;
+  border-style: solid;
+}
+
+.buttom-container{
+  margin: 0% 0% 20% 0%;
+  border-color: purple;
+  border-style: solid;
+}
