@@ -1,23 +1,61 @@
-.main-container {
-  margin: 5% 10% 0% 10%;
-  border-color: red;
-  border-style: solid;
+.book-flex-container {
+  /* border-color: blue; */
+  /* border-style: solid; */
+  width: 80%;
+  display: flex;
+  flex-direction: row;
 }
 
-.left-container{
-  margin: 0% 0% 0% 0%;
-  border-color: blue;
+.price-details {
+  border-color: grey;
   border-style: solid;
+  border-width: thin;
+  position: absolute;
+  top: 5%;
+  left: 85%;
+  width: 150px;
+  height: 250px;
+  /* text-align: center; */
 }
 
-.right-container{
-  margin: 3% 3% 0% 0%;
-  border-color: green;
-  border-style: solid;
+.price-details form {
+  position: relative;
+  top: 3%;
+  left: 15%;
+  margin-top: 10px;
 }
 
-.buttom-container{
-  margin: 0% 0% 20% 0%;
-  border-color: purple;
-  border-style: solid;
+.price-details h4 {
+  margin-left: 10px;
+}
+
+.book-flex-container > section {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-rating-flex-container {
+  /* border-color: purple;
+  border-style: solid; */
+  display: flex;
+  flex-direction: column;
+}
+
+/* .price-details button {
+  position: relative;
+  left: 50%;
+  top: 20%
+} */
+
+img {
+  height: 300px;
+  width: 400px;
+  margin: 2%;
+}
+
+
+
+.grey-line:last-child {
+  border-top: transparent;
+  /* margin-bottom: 10px; */
 }

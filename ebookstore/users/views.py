@@ -112,6 +112,8 @@ class SignInView(FormView):
     def post(self, request):
         form = SignInForm(request, data=request.POST)
         if form.is_valid():
+            user = form.get_user()
+            login(request, user)
             return HttpResponseRedirect(reverse("home-page"))
         
         else:

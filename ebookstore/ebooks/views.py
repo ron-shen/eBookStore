@@ -1,13 +1,12 @@
 import string
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import View
 from django.views.generic.list import ListView
 from .models import Book, UserBook
 from .forms import CommentRatingForm
 from users.models import User
-
-
+from django.urls import reverse
 
 # Create your views here.
 class Homepage(ListView):
@@ -51,14 +50,24 @@ class EbookDetailView(View):
         if user_bought_book:
             comment_rating_form = CommentRatingForm()
             
-        content = {"book": book, "users_comment_rating": users_comment_rating, "rating_distribution": rating_distribution, 
-                   "avg_rating": avg_rating, "comment_rating_form": comment_rating_form}
+        content = {"book": book, 
+                   "users_comment_rating": users_comment_rating, 
+                   "rating_distribution": rating_distribution, 
+                   "avg_rating": avg_rating, 
+                   "comment_rating_form": comment_rating_form}
         
         return render(request, "ebooks/details.html", content)
 
 
-    def post(self, request):
-        pass
+    def post(self, request, slug):
+        if "comment_rating" in request.POST:
+            book_id = int(request.POST["book_id"])
+            user_id = request.user.id
+            comment = request.POST["comment"]
+            rating = request.POST["rating"]
+            UserBook.objects.filter(user=user_id, book=book_id).update(comment=comment, 
+                                                                       rating=rating)
+            return HttpResponseRedirect(reverse("indiviudal-ebook", args=[slug]))
   
 
 class EbooksView(ListView):

@@ -1,0 +1,41 @@
+.main-container {
+  margin: 5% 10% 1% 10%;
+  /* border-color: red; */
+  /* border-style: solid; */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.grey-line {
+  border-bottom: grey;
+  border-top: grey;
+  border-left: transparent;
+  border-right: transparent;
+  border-style: solid;
+  border-width: thin;
+}
+
+/* 
+.left-container{
+  margin: 0% 0% 0% 0%;
+  border-color: blue;
+  border-style: solid;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.right-container{
+  margin: 0% 0% 0% 0%;
+  padding: 0% 0% 0% 0%;
+  border-color: green;
+  border-style: solid;
+  display: inline-block;
+  max-width: 15%;
+}
+
+.middle-container{
+  margin: 0% 0% 20% 0%;
+  border-color: purple;
+  border-style: solid;
+} */

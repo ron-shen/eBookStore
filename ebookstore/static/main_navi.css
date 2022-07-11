@@ -36,12 +36,12 @@ h3 {
   margin-left: 1rem;
 }
 
-#main-navigation a:hover,
+#main-navigation h1 a:hover,
 #main-navigation a:active {
   color: #cf79f1;
 }
 
-#main-navigation h1 a:hover,
+/* #main-navigation h1 a:hover,
 #main-navigation h1 a:active {
   color: white;
-}
+} */

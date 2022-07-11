@@ -21,17 +21,17 @@ class SignUpForm(forms.ModelForm):
         "password": PasswordInput
     }
     
-class SignInForm(forms.ModelForm):
-  class Meta:
-    model = User
-    fields = ["username", "password"]
-    labels = {
-      "username": "User name",
-      "password": "Password",
-    }
-    widgets = {
-        "password": PasswordInput
-    }
+# class SignInForm(forms.ModelForm):
+#   class Meta:
+#     model = User
+#     fields = ["username", "password"]
+#     labels = {
+#       "username": "User name",
+#       "password": "Password",
+#     }
+#     widgets = {
+#         "password": PasswordInput
+#     }
     
 class SignInForm(AuthenticationForm):
     """

@@ -6,17 +6,21 @@
 {% endblock %}
 
 {% block css_files %}
-
+  <link rel="stylesheet" href={% static "ebooks/index.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-  <section>
-    <h4>Best Selling Books</h4>
-    {% for book in books %}
-      <a href="{% url "indiviudal-ebook" book.slug %}">
-        <img src={{ book.image.url }} alt="image not found">
-      </a>
-    {% endfor %}
-  </section>
+  <div class="main-container">
+    <section class="grey-line">
+      <h1>Best Selling Books</h1>
+      {% for book in books %}
+        <a href="{% url "indiviudal-ebook" book.slug %}">
+          <img src={{ book.image.url }} alt="image not found">
+        </a>
+      {% endfor %}
+    </section>
+  </div>
+
 
 {% endblock %}

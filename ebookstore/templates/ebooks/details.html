@@ -7,21 +7,89 @@
 
 {% block css_files %}
   <link rel="stylesheet" href={% static "ebooks/details.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
   <div class="main-container">
     <!--book details-->
-    <div class="left-container">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
+    <div class="book-flex-container">
+      <img src={{ book.image.url }} alt="image not found">
+      <section>
+        <h3>{{ book.title }}</h3>
+        <p>by
+        {% for author in book.author.all%}
+          <span> {{ author }} </span>
+        {% endfor %}
+        </p>
+
+        <p>Synopsis</p>
+        <p>{{ book.synopsis }}</p>
+      </section>
     </div>
-    <!--contents about adding to cart/save to wishlist/buy now-->
-    <div class="right-container">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
-    </div>
-    <!--comment and rating-->
-    <div class="bottom-container">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt rem alias accusantium laborum. Veniam magnam maiores sint voluptatum magni excepturi provident est minus sunt neque, nulla corporis repellat sit cupiditate!</p>
+
+    <!--buttons of buy now, add to wishlist/add to chart-->
+    <section class="price-details">
+      <h4>Buy the eBook</h4>
+      <h4>Price ${{ book.price }}</h4>
+      <form action="{% url "cart" %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="add_to_cart">Add to cart</button>
+        <input type="hidden" name="slug" value={{ book.slug }}>
+        <input type="hidden" name="book_id" value={{ book.id }}>
+      </form>
+
+      <form action="{% url "cart" %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="buy_now">Buy Now</button>
+        <input type="hidden" name="book_id" value={{ book.id }}>
+      </form>
+
+      <form action="{% url "wish-list" %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
+        <input type="hidden" name="slug" value={{ book.slug }}>
+      </form>
+    </section>
+
+    <div class="comments-rating-flex-container">
+      <section class="grey-line">
+        <h1>Rating</h1>
+        {% for rating in rating_distribution %}
+          <p>{{ forloop.counter }}:{{ rating }}</p>
+        {% endfor %}
+        <p>Average rating: {{ avg_rating }}</p>
+      </section>
+
+      {% if comment_rating_form %}
+        <section class="grey-line">
+          <h1>Share your thoughts</h1>
+          <form action="{% url "indiviudal-ebook" book.slug %}" method="post">
+            {% csrf_token %}
+            {% for field in comment_rating_form %}
+              <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+              </div>
+            {% endfor %}
+            <button type="submit" name="comment_rating">Submit</button>
+            <input type="hidden" name="book_id" value={{ book.id }}>
+          </form>
+        </section>
+      {% endif %}
+
+      <h1>Comments</h1>
+
+        {% for user_comment_rating in users_comment_rating %}
+          <section class="grey-line">
+            <!--name comment rating -->
+            <p>{{ user_comment_rating.1 }} {{ user_comment_rating.2 }}</p>
+            <p>{{ user_comment_rating.0 }}</p>
+          </section>
+        {% endfor %}        
+
+
     </div>
 
   </div>
