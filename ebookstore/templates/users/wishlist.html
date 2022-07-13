@@ -7,21 +7,26 @@
 
 {% block css_files %}
   <link rel="stylesheet" href={% static "users/wishlist.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-  <section>
+  <div class="main-container">
     {% for book in books %}
-    <a href="{% url "indiviudal-ebook" book.slug %}">
-      <img src={{ book.image.url }} alt="image not found">
-    </a>
-    {{ book.title }}
-    {{ book.price }}
-    <form action="{% url "wish-list" %}" method="post" id="checkout">
-      {% csrf_token %}
-      <button type="submit" name="delete" value={{ book.id }}>Delete</button>
-    </form>
+      <div class="grey-line book">
+          <a href="{% url "indiviudal-ebook" book.slug %}">
+            <img src={{ book.image.url }} alt="image not found">
+          </a>
+          <section class="book-infomation">
+            <h1>{{ book.title }}</h1>
+            <h2>${{ book.price }}</h2>
+            <form action="{% url "wish-list" %}" method="post" id="checkout">
+              {% csrf_token %}
+              <button type="submit" name="delete" value={{ book.id }}>Delete</button>
+            </form>
+          </section>
+      </div>
     {% endfor %}
-  </section>
+  </div>
 
 {% endblock %}

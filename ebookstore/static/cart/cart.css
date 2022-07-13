@@ -1,5 +1,9 @@
-#checkout{
-    display: block;
-    text-align: center;
-    margin-top:100px;
+p{
+  text-align: right;
+  font-size: large;
+}
+
+.main-container > form > button {
+  font-size: large;
+  float: right;
 }

@@ -7,15 +7,16 @@
 
 {% block css_files %}
   <link rel="stylesheet" href={% static "users/profile.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-  <section>
-    <form method="post" id="profile" action="{% url "profile" %}">
+  <div class="main-container">
+    <form class="form-control" method="post" id="profile" action="{% url "profile" %}">
       {% csrf_token %}
       {{ form.errors }}
       {{ form.as_p }}
-      <input type="submit" value="Update">
+      <input id="update_button" type="submit" value="Update">
     </form>    
   </section>
 

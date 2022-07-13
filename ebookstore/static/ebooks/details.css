@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
 .book-flex-container {
   /* border-color: blue; */
   /* border-style: solid; */
@@ -54,8 +56,31 @@ img {
 }
 
 
+.form-control {
+  margin-bottom: 1rem;
+}
 
-.grey-line:last-child {
-  border-top: transparent;
-  /* margin-bottom: 10px; */
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-control input,
+.form-control textarea {
+  padding: 0.25rem;
+  width: 50%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  display: block;
+}
+
+#comment_rating_button {
+  background-color: purple;
+  color: white;
+  border: transparent;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
 }

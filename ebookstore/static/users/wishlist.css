@@ -3,3 +3,31 @@
   text-align: center;
   margin-top:100px;
 }
+
+img {
+  height: 400px;
+  width: 300px;
+  margin: 2% 0% 0% 35%;
+}
+
+.book-information-container{
+  display: flex;
+  flex-direction: row;
+}
+
+a {
+  text-decoration: none;
+}
+
+.book{
+  position: relative;
+}
+
+.book-infomation {
+  position: absolute;
+  /* border-color : red;
+  border-style: solid; */
+  top: 15%;
+  left: 60%;
+  width: 20%
+}

@@ -6,20 +6,25 @@
 {% endblock %}
 
 {% block css_files %}
-  {% comment %} <link rel="stylesheet" href={% static "users/wishlist.css" %}> {% endcomment %}
+  <link rel="stylesheet" href={% static "users/wishlist.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-  <section>
+  <div class="main-container">
     {% for book in books %}
-      <a href="{% url "indiviudal-ebook" book.slug %}">
-      <img src={{ book.image.url }} alt="image not found">
-      </a>
-      <form action="{% url "library" %}" method="post" id="#">
-        {% csrf_token %}
-        <button type="submit" name="slug" value={{ book.slug }}>Download</button>
-      </form>
+      <div class="grey-line book">
+          <a href="{% url "indiviudal-ebook" book.slug %}">
+            <img src={{ book.image.url }} alt="image not found">
+          </a>
+          <section class="book-infomation">
+            <h1>{{ book.title }}</h1>
+            <form action="{% url "library" %}" method="post" id="#">
+              {% csrf_token %}
+              <button type="submit" name="slug" value={{ book.slug }}>Download</button>
+            </form>          
+          </section>
+        </div>
     {% endfor %}
-  </section>
-
+  </div>
 {% endblock %}

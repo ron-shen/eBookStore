@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load ebooks_extras %}
+
 
 {% block title %}
   {{ book.title }}
@@ -56,9 +58,9 @@
       <section class="grey-line">
         <h1>Rating</h1>
         {% for rating in rating_distribution %}
-          <p>{{ forloop.counter }}:{{ rating }}</p>
+          <p>{{ forloop.counter|rating_to_star }} ({{ rating }})</p>
         {% endfor %}
-        <p>Average rating: {{ avg_rating }}</p>
+        <p>Average rating: {{ avg_rating|rating_to_star }}</p>
       </section>
 
       {% if comment_rating_form %}
@@ -67,13 +69,13 @@
           <form action="{% url "indiviudal-ebook" book.slug %}" method="post">
             {% csrf_token %}
             {% for field in comment_rating_form %}
-              <div>
+              <div class="form-control">
                 {{ field.label_tag }}
                 {{ field }}
                 {{ field.errors }}
               </div>
             {% endfor %}
-            <button type="submit" name="comment_rating">Submit</button>
+            <button id="comment_rating_button" type="submit" name="comment_rating">Submit</button>
             <input type="hidden" name="book_id" value={{ book.id }}>
           </form>
         </section>
