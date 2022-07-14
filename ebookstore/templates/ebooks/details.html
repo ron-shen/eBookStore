@@ -17,7 +17,7 @@
     <!--book details-->
     <div class="book-flex-container">
       <img src={{ book.image.url }} alt="image not found">
-      <section>
+      <section id="book-details">
         <h3>{{ book.title }}</h3>
         <p>by
         {% for author in book.author.all%}
@@ -28,9 +28,32 @@
         <p>Synopsis</p>
         <p>{{ book.synopsis }}</p>
       </section>
+      <!--buttons of buy now, add to wishlist/add to chart-->
+      <section class="price-details">
+        <h4>Buy the eBook</h4>
+        <h4>Price ${{ book.price }}</h4>
+        <form action="{% url "cart" %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="add_to_cart">Add to cart</button>
+          <input type="hidden" name="slug" value={{ book.slug }}>
+          <input type="hidden" name="book_id" value={{ book.id }}>
+        </form>
+
+        <form action="{% url "cart" %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="buy_now">Buy Now</button>
+          <input type="hidden" name="book_id" value={{ book.id }}>
+        </form>
+
+        <form action="{% url "wish-list" %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
+          <input type="hidden" name="slug" value={{ book.slug }}>
+        </form>
+      </section>
     </div>
 
-    <!--buttons of buy now, add to wishlist/add to chart-->
+    {% comment %} <!--buttons of buy now, add to wishlist/add to chart-->
     <section class="price-details">
       <h4>Buy the eBook</h4>
       <h4>Price ${{ book.price }}</h4>
@@ -52,7 +75,7 @@
         <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
         <input type="hidden" name="slug" value={{ book.slug }}>
       </form>
-    </section>
+    </section> {% endcomment %}
 
     <div class="comments-rating-flex-container">
       <section class="grey-line">
