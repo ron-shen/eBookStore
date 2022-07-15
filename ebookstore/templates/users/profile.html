@@ -11,13 +11,17 @@
 {% endblock %}
 
 {% block content %}
-  <div class="main-container">
-    <form class="form-control" method="post" id="profile" action="{% url "profile" %}">
+    <form method="post" action="{% url "profile" %}">
       {% csrf_token %}
-      {{ form.errors }}
-      {{ form.as_p }}
+      {% for field in form %}
+        <div class="form-control {% if field.errors %}invalid{% endif %}">
+          {{ field.label_tag }}
+          {{ field }}  
+          {{ field.errors }}
+        </div>  
+      {% endfor %}
+      {% comment %} {{ form.errors }}
+      {{ form.as_p }} {% endcomment %}
       <input id="update_button" type="submit" value="Update">
     </form>    
-  </section>
-
 {% endblock %}

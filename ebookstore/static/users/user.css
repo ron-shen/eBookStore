@@ -1,5 +1,23 @@
 #user{
-    display: block;
-    text-align: center;
-    margin-top:100px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin-top: 100px;
+  justify-content: center;
 }
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  margin: 20vh;
+}
+
+#user a {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+}
+
+

@@ -53,30 +53,6 @@
       </section>
     </div>
 
-    {% comment %} <!--buttons of buy now, add to wishlist/add to chart-->
-    <section class="price-details">
-      <h4>Buy the eBook</h4>
-      <h4>Price ${{ book.price }}</h4>
-      <form action="{% url "cart" %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="add_to_cart">Add to cart</button>
-        <input type="hidden" name="slug" value={{ book.slug }}>
-        <input type="hidden" name="book_id" value={{ book.id }}>
-      </form>
-
-      <form action="{% url "cart" %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="buy_now">Buy Now</button>
-        <input type="hidden" name="book_id" value={{ book.id }}>
-      </form>
-
-      <form action="{% url "wish-list" %}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
-        <input type="hidden" name="slug" value={{ book.slug }}>
-      </form>
-    </section> {% endcomment %}
-
     <div class="comments-rating-flex-container">
       <section class="grey-line">
         <h1>Rating</h1>
@@ -86,13 +62,13 @@
         <p>Average rating: {{ avg_rating|rating_to_star }}</p>
       </section>
 
-      {% if comment_rating_form %}
+      {% if show_form %}
         <section class="grey-line">
           <h1>Share your thoughts</h1>
           <form action="{% url "indiviudal-ebook" book.slug %}" method="post">
             {% csrf_token %}
-            {% for field in comment_rating_form %}
-              <div class="form-control">
+            {% for field in form %}
+              <div class="form-control {% if field.errors %}invalid{% endif %}">
                 {{ field.label_tag }}
                 {{ field }}
                 {{ field.errors }}
@@ -109,59 +85,11 @@
         {% for user_comment_rating in users_comment_rating %}
           <section class="grey-line">
             <!--name comment rating -->
-            <p>{{ user_comment_rating.1 }} {{ user_comment_rating.2 }}</p>
-            <p>{{ user_comment_rating.0 }}</p>
+            <p>{{ user_comment_rating.1 }}      {{ user_comment_rating.2|rating_to_star }}</p>
+            <p>by {{ user_comment_rating.0 }}</p>
           </section>
         {% endfor %}        
-
-
     </div>
-
   </div>
-
-  <!--
-  <section>
-    <img src={{ book.image.url }} alt="image not found">
-    {{ book.title }}
-    {{ book.synopsis }}
-    {{ book.price }}
-
-    <form action="{% url "cart" %}" method="post">
-      {% csrf_token %}
-      <button type="submit" name="add_to_cart">Add to cart</button>
-      <input type="hidden" name="slug" value={{ book.slug }}>
-      <input type="hidden" name="book_id" value={{ book.id }}>
-    </form>
-
-    <form action="{% url "cart" %}" method="post">
-      {% csrf_token %}
-      <button type="submit" name="buy_now">Buy Now</button>
-      <input type="hidden" name="book_id" value={{ book.id }}>
-    </form>
-
-    <form action="{% url "wish-list" %}" method="post">
-      {% csrf_token %}
-      <button type="submit" name="add_to_wishlist">Add to Wishlist</button>
-      <input type="hidden" name="slug" value={{ book.slug }}>
-    </form>
-    
-    {% if comment_rating_form %}
-      {{ comment_rating_form }}
-    {% endif %}
-
-    <h5>Rating</h5>
-    {{ rating_distribution }}
-    {{ avg_rating }}
-
-    <h5>Comment</h5>
-    {% for user_comment_rating in users_comment_rating %}
-      {% comment %} name comment rating {% endcomment %}
-      <p>{{ user_comment_rating.0 }}</p>
-      <p>{{ user_comment_rating.1 }}</p>
-      <p>{{ user_comment_rating.2 }}</p>
-    {% endfor %}
-
-  </section>
-  -->
 
 {% endblock %}
