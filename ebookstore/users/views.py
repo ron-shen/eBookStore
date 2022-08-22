@@ -117,28 +117,8 @@ class SignInView(FormView):
             return HttpResponseRedirect(reverse("home-page"))
         
         else:
-            print(form.errors.as_data())
             return self.form_invalid(form)
-         
-        # user = authenticate(username=request.POST['username'], 
-        #                     password=request.POST['password'])
-        # print(type(user))
-        # print(dir(user))
-        # if user is not None:
-        #     #print("user exist")
-        #     login(request, user)
-        # else:
-        #     return HttpResponse("user doesn't exist!")
-        
-        # # if request.user.is_authenticated:
-        # #     print(user.username)
-        # #     print("ok!!!!!!!!!!!!!!!!!!!")
-            
-        # # else:
-        # #     print("not ok!!!")
-            
-        #return HttpResponseRedirect(reverse("home-page"))
-
+  
 
 class SignUpView(FormView):
     template_name = "users/sign_up.html/"

@@ -7,13 +7,14 @@
 
 {% block css_files %}
   <link rel="stylesheet" href={% static "users/sign_in.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-	<form method="POST" action="{% url "sign-in" %}" class="form">
+	<form method="POST" action="{% url "sign-in" %}" class="form-control">
     {% csrf_token %}
-    {{ form.errors }}
+    {% comment %} {{ form.errors.as_data }} {% endcomment %}
     {{ form.as_p }}
-    <button>Submit</button>
+    <button>Sign In</button>
 	</form>
 {% endblock %}

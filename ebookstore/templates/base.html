@@ -14,14 +14,14 @@
   <header id="main-navigation">
     <h1><a href="{% url "home-page" %}">Home</a></h1>
     <nav>
-      <a href="{% url "wish-list" %}">Wishlist</a>
-      <a href="{% url "cart" %}">Cart</a>
+      <h2><a href="{% url "wish-list" %}">Wishlist</a></h2>
+      <h2><a href="{% url "cart" %}">Cart</a></h2>
       {% if user.is_authenticated %}
-        <a href="{% url "account" %}">My account</a>
-        <a href="{% url "sign-out" %}">Sign out</a>
+        <h2><a href="{% url "account" %}">My account</a></h2>
+        <h2><a href="{% url "sign-out" %}">Sign out</a></h2>
       {% else %}
-        <a href="{% url "sign-up" %}">Sign up</a>
-        <a href="{% url "sign-in" %}">Sign in</a>   
+        <h2><a href="{% url "sign-up" %}">Sign up</a></h2>
+        <h2><a href="{% url "sign-in" %}">Sign in</a></h2> 
       {% endif %}
     </nav>
   </header>

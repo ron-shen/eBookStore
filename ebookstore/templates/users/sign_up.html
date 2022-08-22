@@ -7,13 +7,19 @@
 
 {% block css_files %}
   <link rel="stylesheet" href={% static "users/sign_up.css" %}>
+  <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
-	<form method="POST" action="{% url "sign-up" %}" class="form">
+	<form method="POST" action="{% url "sign-up" %}">
     {% csrf_token %}
-    {{ form.errors }}
-	{{ form.as_p }}
+    {% for field in form %}
+    <div class="form-control {% if field.errors %}invalid{% endif %}">
+        {{ field.label_tag }}
+        {{ field }}  
+        {{ field.errors }}
+    </div>   
+    {% endfor %}
     <button type="submit">Submit</button>
 	</form>
 {% endblock %}

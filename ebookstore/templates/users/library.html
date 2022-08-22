@@ -6,14 +6,14 @@
 {% endblock %}
 
 {% block css_files %}
-  <link rel="stylesheet" href={% static "users/wishlist.css" %}>
+  <link rel="stylesheet" href={% static "cart_wish_lib.css" %}>
   <link rel="stylesheet" href={% static "base.css" %}>
 {% endblock %}
 
 {% block content %}
   <div class="main-container">
     {% for book in books %}
-      <div class="grey-line book">
+      <div class="grey-line common">
           <a href="{% url "indiviudal-ebook" book.slug %}">
             <img src={{ book.image.url }} alt="image not found">
           </a>
