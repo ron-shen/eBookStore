@@ -7,7 +7,7 @@ eBook store web app written in Django
 2. install MySQL server
 3. pip install Django
 4. pip install mysqlclient
-5. git clone https://github.com/ronshen0404/eBookStore.git
+5. git clone https://github.com/ron-shen/eBookStore.git
 6. create database and change the database setting in settings.py
 7. python3 manage.py makemigrations
 8. python3 manage.py migrate
